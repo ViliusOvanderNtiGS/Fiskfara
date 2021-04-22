@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 
-namespace blackjack
+namespace FiskFara
 {
     class Program
     {
@@ -11,13 +11,10 @@ namespace blackjack
         static void Main(string[] args)
         {
             intro();
-
-            Console.WriteLine(@"Tryck på ""Enter""");
-            string svar1 = Console.ReadLine();
-
             senario1();
-            svar1 = Console.ReadLine();
-            while (svar1 != "1" || svar1 != "2" || svar1 != "3")
+
+            string svar1 = Console.ReadLine();
+            while (svar1 != "1" && svar1 != "2" && svar1 != "3")
             {
                 svar1 = Console.ReadLine();
                 Console.WriteLine("Skriv in ett av alternativen");
@@ -28,25 +25,24 @@ namespace blackjack
             int heat = 0;
             //int hp = 100;
 
-
-            svar1 = Console.ReadLine();
             if (svar1 == "1")
             {
                 Console.WriteLine("Du sammlar pinnar i en närliggande skog och drivträ från stranden, samt palmblad från marken.");
                 Console.WriteLine("Hur vill du att ditt skydd ska se ut.");
-                Console.WriteLine("1: Standard tält");
-                Console.WriteLine(@"   __ ");
-                Console.WriteLine(@"  /  \");
-                Console.WriteLine(@" /____\");
                 Console.WriteLine();
-                Console.WriteLine("2: Hammock");
-                Console.WriteLine(@" |\__/|");
-                Console.WriteLine(@" |    |");
+                Console.WriteLine(@"                   __ ");
+                Console.WriteLine(@"1: Standard tält  /  \");
+                Console.WriteLine(@"                 /____\");
+                Console.WriteLine();
+                Console.WriteLine();
+                Console.WriteLine(@"2: Hammock |\__/|");
+                Console.WriteLine(@"           |    |");
+                Console.WriteLine();
 
-                while (svar1 == "1" || svar1 == "2")
+                while (svar1 != "1" && svar1 != "2")
                 {
-                    Console.WriteLine("Skriv in alternativen");
                     svar1 = Console.ReadLine();
+                    Console.WriteLine("Skriv in ett av alternativen");
                 }
 
                 svar1 = Console.ReadLine();
