@@ -1,4 +1,5 @@
-﻿using System;
+﻿using static System.Console;
+using System;
 using System.Collections.Generic;
 
 namespace FiskFara
@@ -11,13 +12,20 @@ namespace FiskFara
         static void Main(string[] args)
         {
             intro();
-            senario1();
+
+            WriteLine("Du är strandsatt på en ö i Karibiska havet.");
+            WriteLine("Du ser lite skumma fiskar, men tänker inte mer på det.");
+            WriteLine("Du måste förbereda för att överleva natten");
+            // string frågan 1
+            // string fråga 2
+            scenario(@"Vad gör du? Skriv antingen ""1"", ""2"" eller ""3""", "1: Sätt upp skydd", "2: Sätt upp en eld", "3: Hitta mat");
 
             string svar1 = Console.ReadLine();
+
             while (svar1 != "1" && svar1 != "2" && svar1 != "3")
             {
                 svar1 = Console.ReadLine();
-                Console.WriteLine("Skriv in ett av alternativen");
+                WriteLine("Skriv in ett av alternativen");
             }
 
             int time = 0;
@@ -133,15 +141,15 @@ namespace FiskFara
             }
         }
 
-        static void senario1()
+
+        static void scenario(string frågan, params string[] options) // array till att ha så många options jag vill
         {
-            Console.WriteLine("Du är strandsatt på en ö i Karibiska havet.");
-            Console.WriteLine("Du ser lite skumma fiskar, men tänker inte mer på det.");
-            Console.WriteLine("Du måste förbereda för att överleva natten");
-            Console.WriteLine(@"Vad gör du? (Skriv antingen ""1"", ""2"" eller ""3"" )");
-            Console.WriteLine("1: Sätt upp skydd");
-            Console.WriteLine("2: Sätt upp en eld");
-            Console.WriteLine("3: Hitta mat");
+            Console.WriteLine(frågan);
+
+            foreach (var option in options)
+            {
+                WriteLine(option);
+            }
         }
     }
 }
