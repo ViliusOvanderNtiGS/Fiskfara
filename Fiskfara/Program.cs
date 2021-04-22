@@ -16,9 +16,13 @@ namespace FiskFara
             WriteLine("Du är strandsatt på en ö i Karibiska havet.");
             WriteLine("Du ser lite skumma fiskar, men tänker inte mer på det.");
             WriteLine("Du måste förbereda för att överleva natten");
-            // string frågan 1
+            string opt1 = "1: Sätt upp skydd";
+            string opt2 = "2: Sätt upp en eld";
+            string opt3 = "3: Hitta mat";
+            //detta är för att senare göra ett system som tar bort frågan efter att amn har tryckt på fågan
+
             // string fråga 2
-            scenario(@"Vad gör du? Skriv antingen ""1"", ""2"" eller ""3""", "1: Sätt upp skydd", "2: Sätt upp en eld", "3: Hitta mat");
+            scenario(@"Vad gör du? Skriv antingen ""1"", ""2"" eller ""3""", opt1, opt2, opt3);
 
             string svar1 = Console.ReadLine();
 
@@ -35,17 +39,17 @@ namespace FiskFara
 
             if (svar1 == "1")
             {
-                Console.WriteLine("Du sammlar pinnar i en närliggande skog och drivträ från stranden, samt palmblad från marken.");
-                Console.WriteLine("Hur vill du att ditt skydd ska se ut.");
-                Console.WriteLine();
-                Console.WriteLine(@"                   __ ");
-                Console.WriteLine(@"1: Standard tält  /  \");
-                Console.WriteLine(@"                 /____\");
-                Console.WriteLine();
-                Console.WriteLine();
-                Console.WriteLine(@"2: Hammock |\__/|");
-                Console.WriteLine(@"           |    |");
-                Console.WriteLine();
+                WriteLine("Du sammlar pinnar i en närliggande skog och drivträ från stranden, samt palmblad från marken.");
+                WriteLine("Hur vill du att ditt skydd ska se ut.");
+                WriteLine();
+                WriteLine(@"                   __ ");
+                WriteLine(@"1: Standard tält  /  \");
+                WriteLine(@"                 /____\");
+                WriteLine();
+                WriteLine();
+                WriteLine(@"2: Hammock |\__/|");
+                WriteLine(@"           |    |");
+                WriteLine();
 
                 while (svar1 != "1" && svar1 != "2")
                 {
@@ -99,20 +103,20 @@ namespace FiskFara
         }
         static void intro()
         {
-            Console.WriteLine("");
-            Console.WriteLine("");
-            Console.WriteLine(@"                    ______ _     _     ______              ");
-            Console.WriteLine(@"                    |  ___(_)   | |    |  ___|             ");
-            Console.WriteLine(@"                    | |_   _ ___| | __ | |_ __ _ _ __ __ _ ");
-            Console.WriteLine(@"                    |  _| | / __| |/ / |  _/ _` | '__/ _` |");
-            Console.WriteLine(@"                    | |   | \__ \   <  | || (_| | | | (_| |");
-            Console.WriteLine(@"                    \_|   |_|___/_|\_\ \_| \__,_|_|  \__,_|");
-            Console.WriteLine("");
-            Console.WriteLine("                              Kommer du att överleva?");
-            Console.WriteLine("");
-            Console.WriteLine("");
-            Console.WriteLine(@"                          Skriv ""start"" för att starta.");
-            Console.WriteLine(@"                       Skriv ""quit"" för att göra motsattsen.");
+            WriteLine("");
+            WriteLine("");
+            WriteLine(@"                    ______ _     _     ______              ");
+            WriteLine(@"                    |  ___(_)   | |    |  ___|             ");
+            WriteLine(@"                    | |_   _ ___| | __ | |_ __ _ _ __ __ _ ");
+            WriteLine(@"                    |  _| | / __| |/ / |  _/ _` | '__/ _` |");
+            WriteLine(@"                    | |   | \__ \   <  | || (_| | | | (_| |");
+            WriteLine(@"                    \_|   |_|___/_|\_\ \_| \__,_|_|  \__,_|");
+            WriteLine("");
+            WriteLine("                              Kommer du att överleva?");
+            WriteLine("");
+            WriteLine("");
+            WriteLine(@"                          Skriv ""start"" för att starta.");
+            WriteLine(@"                       Skriv ""quit"" för att göra motsattsen.");
 
 
             int gameScene = 0;
