@@ -12,92 +12,169 @@ namespace FiskFara
         static void Main(string[] args)
         {
             intro();
+            //gör en lista med alla opt i och visa bara relevanta opts för frågan. sen ta bort opten som är vald.
 
-            WriteLine("Du är strandsatt på en ö i Karibiska havet.");
-            WriteLine("Du ser lite skumma fiskar, men tänker inte mer på det.");
-            WriteLine("Du måste förbereda för att överleva natten");
-            string opt1 = "1: Sätt upp skydd";
-            string opt2 = "2: Sätt upp en eld";
-            string opt3 = "3: Hitta mat";
-            //detta är för att senare göra ett system som tar bort frågan efter att amn har tryckt på fågan
+            List<string> choices = new List<string>() { "1: Sätt upp skydd", "2: Sätt upp en eld", "3: Hitta mat" };
+            List<string> options = new List<string>() { "1", "2", "3" };
 
-            // string fråga 2
-            scenario(@"Vad gör du? Skriv antingen ""1"", ""2"" eller ""3""", opt1, opt2, opt3);
-
-            string svar1 = Console.ReadLine();
-
-            while (svar1 != "1" && svar1 != "2" && svar1 != "3")
-            {
-                svar1 = Console.ReadLine();
-                WriteLine("Skriv in ett av alternativen");
-            }
+            //choices = new List<string>() { "1: Sätt upp skydd", "2: Sätt upp en eld", "3: Hitta mat" };
 
             int time = 0;
             int shelter = 0; // 1 = tent 2 = hammock
             int heat = 0;
-            //int hp = 100;
+            int hung = 100; //hunger
+            int hp = 100;
 
-            if (svar1 == "1")
+
+            while (choices.Count > 0)
             {
-                WriteLine("Du sammlar pinnar i en närliggande skog och drivträ från stranden, samt palmblad från marken.");
-                WriteLine("Hur vill du att ditt skydd ska se ut.");
-                WriteLine();
-                WriteLine(@"                   __ ");
-                WriteLine(@"1: Standard tält  /  \");
-                WriteLine(@"                 /____\");
-                WriteLine();
-                WriteLine();
-                WriteLine(@"2: Hammock |\__/|");
-                WriteLine(@"           |    |");
-                WriteLine();
+                WriteLine("Du är strandsatt på en ö i Karibiska havet.");
+                WriteLine("Du ser lite skumma fiskar, men tänker inte mer på det.");
+                WriteLine("Du måste förbereda för att överleva natten");
+                // string fråga 2
+                scenario(@"Vad gör du? Skriv antingen ""1"", ""2"" eller ""3""", choices);
 
-                while (svar1 != "1" && svar1 != "2")
+                string svar1 = Console.ReadLine();
+
+                while (!options.Contains(svar1))
                 {
                     svar1 = Console.ReadLine();
-                    Console.WriteLine("Skriv in ett av alternativen");
+                    WriteLine("Skriv in ett av alternativen");
                 }
 
-                svar1 = Console.ReadLine();
+
                 if (svar1 == "1")
                 {
+                    choices.Remove("1: Sätt upp skydd");
+                    options.Remove("1");
+                    WriteLine("Du sammlar pinnar i en närliggande skog och drivträ från stranden, samt palmblad från marken.");
+                    WriteLine("Hur vill du att ditt skydd ska se ut.");
+                    WriteLine();
+                    WriteLine(@"                   __ ");
+                    WriteLine(@"1: Standard tält  /  \");
+                    WriteLine(@"                 /____\");
+                    WriteLine();
+                    WriteLine();
+                    WriteLine(@"2: Hammock |\__/|");
+                    WriteLine(@"           |    |");
+                    WriteLine();
 
-                    Console.WriteLine("Du gör ett Standard tält");
-                    time++;
-                    shelter = 1;
-                    heat = heat + 10;
+                    while (svar1 != "1" && svar1 != "2")
+                    {
+                        svar1 = Console.ReadLine();
+                        Console.WriteLine("Skriv in ett av alternativen");
+                    }
 
+                    svar1 = Console.ReadLine();
+                    if (svar1 == "1")
+                    {
+
+                        Console.WriteLine("Du gör ett Standard tält");
+                        time++;
+                        shelter = 1;
+                        heat = heat + 10;
+
+                    }
+                    else if (svar1 == "2")
+                    {
+                        Console.WriteLine("Du gör en Hammock");
+                        time++;
+                        shelter = 2;
+                        heat = heat + 0;
+
+                    }
+                    WriteLine(shelter);
+                    ReadLine();
+                    Clear();
                 }
                 else if (svar1 == "2")
                 {
-                    Console.WriteLine("Du gör en Hammock");
+                    Console.WriteLine("Du gör upp en eld med trä du hittar i närheten. ");
+                    choices.Remove("2: Sätt upp en eld");
+                    options.Remove("2");
                     time++;
-                    shelter = 2;
-                    heat = heat + 0;
+                    heat = heat + 20;
+                    ReadLine();
+                    Clear();
 
                 }
-                Console.WriteLine(shelter);
-                Console.ReadLine();
+                else if (svar1 == "3")
+                {
+                    Console.WriteLine("Du hittar ett par bär buskar som du inte känner igen. ");
+                    WriteLine(@"Äter du bären? Skriv 1 eller 2");
+                    WriteLine("1: Ja");
+                    WriteLine("2: Nej");
+                    choices.Remove("3: Hitta mat");
+                    options.Remove("3");
+
+                    svar1 = Console.ReadLine();
+                    while (svar1 != "1" && svar1 != "2")
+                    {
+                        svar1 = Console.ReadLine();
+                        Console.WriteLine("Skriv in ett av alternativen");
+                    }
+
+                    // svar1 = Console.ReadLine();
+                    if (svar1 == "1")
+                    {
+                        Random generator = new Random();
+                        int bär = generator.Next(99);
+
+                        if (bär >= 49)
+                        {
+                            WriteLine("Det gick bra, bären var goda :-)");
+                            hung = hung + 15;
+                            WriteLine(bär);
+                            time++;
+                        }
+                        else
+                        {
+                            WriteLine("Det gick inte så bra, och du spyr");
+                            hung = hung - 10;
+                            hp = hp - 20;
+                            time++;
+                        }
+
+                    }
+                    else if (svar1 == "2")
+                    {
+                        WriteLine("Du väljer att inte äta bären");
+                        hung = hung - 20;
+                    }
+                    ReadLine();
+                    Clear();
+                }
             }
-            else if (svar1 == "2")
+
+            WriteLine("Dag 1 är nu förbi.");
+            string sheltVisa = "";
+            if (shelter == 1)
             {
-                Console.WriteLine("Du gör upp en eld med trä du hittar i närheten. ");
-                time++;
-                heat = heat + 20;
-
+                sheltVisa = "ditt tält";
             }
-            else if (svar1 == "3")
+            else if (shelter == 2)
             {
-                Console.WriteLine("Du hittar ett par bär buskar som du inte känner igen. ");
-
+                sheltVisa = "din hammock";
+            }
+            WriteLine("Du går och lägger dig i " + sheltVisa);
+            WriteLine("Hunger: " + hung);
+            if (hung <= 10)
+            {
+                hp = hp - 20;
             }
 
-
-
-            Console.Clear();
-
+            WriteLine("Värme: " + heat);    // man kan få tillbaka hp om amn håller sig varm
+            if (heat <= 20)
+            {
+                hp = hp - 20;
+            }
+            else if (heat >= 37)
+            {
+                hp = hp + 20;
+            }
+            WriteLine("Hälsa: " + hp);
+            WriteLine(time);
             Console.ReadLine();
-
-
 
 
         }
@@ -146,7 +223,7 @@ namespace FiskFara
         }
 
 
-        static void scenario(string frågan, params string[] options) // array till att ha så många options jag vill
+        static void scenario(string frågan, List<string> options) // array till att ha så många options jag vill
         {
             Console.WriteLine(frågan);
 
