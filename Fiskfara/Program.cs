@@ -24,7 +24,7 @@ namespace FiskFara
             int heat = 0;
             int hung = 100; //hunger
             int hp = 100;
-
+            int dagNum = 0;
 
             while (choices.Count > 0)
             {
@@ -70,17 +70,17 @@ namespace FiskFara
                     {
 
                         Console.WriteLine("Du gör ett Standard tält");
-                        time++;
                         shelter = 1;
                         heat = heat + 10;
+                        time++;
 
                     }
                     else if (svar1 == "2")
                     {
                         Console.WriteLine("Du gör en Hammock");
-                        time++;
                         shelter = 2;
                         heat = heat + 0;
+                        time++;
 
                     }
                     WriteLine(shelter);
@@ -92,9 +92,9 @@ namespace FiskFara
                     Console.WriteLine("Du gör upp en eld med trä du hittar i närheten. ");
                     choices.Remove("2: Sätt upp en eld");
                     options.Remove("2");
-                    time++;
                     heat = heat + 20;
                     ReadLine();
+                    time++;
                     Clear();
 
                 }
@@ -140,41 +140,69 @@ namespace FiskFara
                     {
                         WriteLine("Du väljer att inte äta bären");
                         hung = hung - 20;
+                        time++;
                     }
                     ReadLine();
                     Clear();
                 }
             }
 
-            WriteLine("Dag 1 är nu förbi.");
-            string sheltVisa = "";
-            if (shelter == 1)
-            {
-                sheltVisa = "ditt tält";
-            }
-            else if (shelter == 2)
-            {
-                sheltVisa = "din hammock";
-            }
-            WriteLine("Du går och lägger dig i " + sheltVisa);
-            WriteLine("Hunger: " + hung);
-            if (hung <= 10)
-            {
-                hp = hp - 20;
-            }
 
-            WriteLine("Värme: " + heat);    // man kan få tillbaka hp om amn håller sig varm
-            if (heat <= 20)
+            natt(shelter, hung, hp, heat, time, dagNum);
+
+
+            //-------------------dag 2---------------------------------------------------------------------------------------------------------------\\
+
+
+
+            choices.Add("1: Sitt lungt");
+            choices.Add("2: Ta en pinne");
+            choices.Add("3: Sök skydd");
+            options.Add("1");
+            options.Add("2");
+            options.Add("3");
+
+            WriteLine("Du vaknar av soljuset.");
+            WriteLine("De skumma fiskarna är ännu skummare och har nu växt ben.");
+            WriteLine("De påbörjar sin vandring mot dig med en hotfull fisk-blick.");
+            scenario(@"Vad gör du? Skriv antingen ""1"", ""2"" eller ""3""", choices);
+            time = 0;
+
+            while (time < 3)
             {
-                hp = hp - 20;
+
+
+                string svar1 = Console.ReadLine();
+
+                while (!options.Contains(svar1))
+                {
+                    svar1 = Console.ReadLine();
+                    WriteLine("Skriv in ett av alternativen");
+                }
+
+
+                if (svar1 == "1") //Första frågan
+                {
+                    WriteLine("Du sitte lungt.");
+                    WriteLine("Fiskarna börjar springa mot dig.");
+                    WriteLine("Du blir nertacklad av dem från alla håll.");
+                    WriteLine("De skadar dig rijält");
+                    hp = hp - 50;
+                    ReadLine();
+                }
+
+
+
+
+
+
+
+
+
+
+
+
             }
-            else if (heat >= 37)
-            {
-                hp = hp + 20;
-            }
-            WriteLine("Hälsa: " + hp);
-            WriteLine(time);
-            Console.ReadLine();
 
 
         }
@@ -231,6 +259,40 @@ namespace FiskFara
             {
                 WriteLine(option);
             }
+        }
+
+        static void natt(int shelter, int hung, int hp, int heat, int time, int dagNum)
+        {
+            dagNum++;
+            WriteLine("Dag " + dagNum + " är nu förbi.");
+            string sheltVisa = "";
+            if (shelter == 1)
+            {
+                sheltVisa = "ditt tält";
+            }
+            else if (shelter == 2)
+            {
+                sheltVisa = "din hammock";
+            }
+            WriteLine("Du går och lägger dig i " + sheltVisa);
+            WriteLine("Hunger: " + hung);
+            if (hung <= 10)
+            {
+                hp = hp - 20;
+            }
+
+            WriteLine("Värme: " + heat);    // man kan få tillbaka hp om amn håller sig varm
+            if (heat <= 20)
+            {
+                hp = hp - 20;
+            }
+            else if (heat >= 37)
+            {
+                hp = hp + 20;
+            }
+            WriteLine("Hälsa: " + hp);
+            WriteLine(time);
+            Console.ReadLine();
         }
     }
 }
