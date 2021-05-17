@@ -26,6 +26,107 @@ namespace FiskFara
             int hp = 100;
             int dagNum = 0;
 
+
+            dag1(choices, options, time, shelter, heat, hung, hp);
+
+            natt(shelter, hung, hp, heat, time, dagNum);
+
+            dag2(choices, options, time, shelter, heat, hung, hp);
+
+
+
+
+        }
+        static void intro() // detta är intro saken till spelet. den visar titlen och man måste skriva start.
+        {
+            WriteLine("");
+            WriteLine("");
+            WriteLine(@"                    ______ _     _     ______              ");
+            WriteLine(@"                    |  ___(_)   | |    |  ___|             ");
+            WriteLine(@"                    | |_   _ ___| | __ | |_ __ _ _ __ __ _ ");
+            WriteLine(@"                    |  _| | / __| |/ / |  _/ _` | '__/ _` |");
+            WriteLine(@"                    | |   | \__ \   <  | || (_| | | | (_| |");
+            WriteLine(@"                    \_|   |_|___/_|\_\ \_| \__,_|_|  \__,_|");
+            WriteLine("");
+            WriteLine("                              Kommer du att överleva?");
+            WriteLine("");
+            WriteLine("");
+            WriteLine(@"                          Skriv ""start"" för att starta.");
+
+
+
+            int gameScene = 0;
+
+            while (gameScene == 0)
+            {
+                string svar = Console.ReadLine();
+                if (svar == "start")
+                {
+                    Console.Clear();
+                    gameScene++;
+
+                }
+                else
+                {
+                    Console.WriteLine(@"Du måste skriva något antingen ""quit"" eller ""start"".");
+                    gameScene = 0;
+
+                }
+            }
+        }
+
+
+        static void scenario(string frågan, List<string> options) //  detta gör så att jag kan ha så många options jag vill tilll ett scenario
+                                                                  //  genom listor som är skrivna i main
+        {
+            Console.WriteLine(frågan);
+
+            foreach (var option in options)
+            {
+                WriteLine(option);
+            }
+        }
+
+        static void natt(int shelter, int hung, int hp, int heat, int time, int dagNum) // detta visar alla stats i spelet och säger vilken dag som är förbi
+        {
+            dagNum++;
+            WriteLine("Dag " + dagNum + " är nu förbi.");
+            string sheltVisa = "";
+            if (shelter == 1)
+            {
+                sheltVisa = "ditt tält";
+            }
+            else if (shelter == 2)
+            {
+                sheltVisa = "din hammock";
+            }
+            WriteLine("Du går och lägger dig i " + sheltVisa);
+            WriteLine("Hunger: " + hung);
+            if (hung <= 10)
+            {
+                hp = hp - 20;
+            }
+
+            WriteLine("Värme: " + heat);    // man kan få tillbaka hp om amn håller sig varm
+            if (heat <= 20)
+            {
+                hp = hp - 20;
+            }
+            else if (heat >= 37)
+            {
+                hp = hp + 20;
+            }
+            WriteLine("Hälsa: " + hp);
+            // WriteLine(time);
+            ReadLine();
+            Clear();
+        }
+
+        // gör en metod där det står att man har dött // varje while loop ska läggas till med om hp != 0
+        // sett metoden längst ner i main
+
+        static void dag1(List<string> choices, List<string> options, int time, int shelter, int heat, int hung, int hp)
+        {
             while (choices.Count > 0)
             {
                 WriteLine("Du är strandsatt på en ö i Karibiska havet.");
@@ -146,15 +247,10 @@ namespace FiskFara
                     Clear();
                 }
             }
+        }
 
-
-            natt(shelter, hung, hp, heat, time, dagNum);
-
-
-            //-------------------dag 2---------------------------------------------------------------------------------------------------------------\\
-
-
-
+        static void dag2(List<string> choices, List<string> options, int time, int shelter, int heat, int hung, int hp)
+        {
             choices.Add("1: Sitt lungt");
             choices.Add("2: Ta en pinne");
             choices.Add("3: Sök skydd");
@@ -170,10 +266,7 @@ namespace FiskFara
 
             while (time < 3)
             {
-
-
                 string svar1 = Console.ReadLine();
-
                 while (!options.Contains(svar1))
                 {
                     svar1 = Console.ReadLine();
@@ -243,6 +336,9 @@ namespace FiskFara
 
 
                 }
+
+
+
             }
 
             while (true) // samma sak som dag 1 fast med 4 alternativ och olika options
@@ -250,93 +346,7 @@ namespace FiskFara
 
             }
 
-
-        }
-        static void intro() // detta är intro saken till spelet. den visar titlen och man måste skriva start.
-        {
-            WriteLine("");
-            WriteLine("");
-            WriteLine(@"                    ______ _     _     ______              ");
-            WriteLine(@"                    |  ___(_)   | |    |  ___|             ");
-            WriteLine(@"                    | |_   _ ___| | __ | |_ __ _ _ __ __ _ ");
-            WriteLine(@"                    |  _| | / __| |/ / |  _/ _` | '__/ _` |");
-            WriteLine(@"                    | |   | \__ \   <  | || (_| | | | (_| |");
-            WriteLine(@"                    \_|   |_|___/_|\_\ \_| \__,_|_|  \__,_|");
-            WriteLine("");
-            WriteLine("                              Kommer du att överleva?");
-            WriteLine("");
-            WriteLine("");
-            WriteLine(@"                          Skriv ""start"" för att starta.");
-
-
-
-            int gameScene = 0;
-
-            while (gameScene == 0)
-            {
-                string svar = Console.ReadLine();
-                if (svar == "start")
-                {
-                    Console.Clear();
-                    gameScene++;
-
-                }
-                else
-                {
-                    Console.WriteLine(@"Du måste skriva något antingen ""quit"" eller ""start"".");
-                    gameScene = 0;
-
-                }
-            }
         }
 
-
-        static void scenario(string frågan, List<string> options) //  detta gör så att jag kan ha så många options jag vill tilll ett scenario
-                                                                  //  genom listor som är skrivna i program
-        {
-            Console.WriteLine(frågan);
-
-            foreach (var option in options)
-            {
-                WriteLine(option);
-            }
-        }
-
-        static void natt(int shelter, int hung, int hp, int heat, int time, int dagNum) // detta visar alla stats i spelet och säger vilken dag som är förbi
-        {
-            dagNum++;
-            WriteLine("Dag " + dagNum + " är nu förbi.");
-            string sheltVisa = "";
-            if (shelter == 1)
-            {
-                sheltVisa = "ditt tält";
-            }
-            else if (shelter == 2)
-            {
-                sheltVisa = "din hammock";
-            }
-            WriteLine("Du går och lägger dig i " + sheltVisa);
-            WriteLine("Hunger: " + hung);
-            if (hung <= 10)
-            {
-                hp = hp - 20;
-            }
-
-            WriteLine("Värme: " + heat);    // man kan få tillbaka hp om amn håller sig varm
-            if (heat <= 20)
-            {
-                hp = hp - 20;
-            }
-            else if (heat >= 37)
-            {
-                hp = hp + 20;
-            }
-            WriteLine("Hälsa: " + hp);
-            // WriteLine(time);
-            ReadLine();
-            Clear();
-        }
-
-        // jag tänkte göra en metod där det står att man har dött // varje while loop ska läggas till med om hp != 0
     }
 }
